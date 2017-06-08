@@ -1,0 +1,64 @@
+@import '~style/helpers';
+
+.header {
+	position: fixed;
+	left: 0;
+	top: 0;
+	width: 100%;
+	height: 56px;
+	padding: 0;
+	background: @athens-gray;
+	box-shadow: 0 0 5px rgba(0, 0, 0, 0.5);
+	z-index: 50;
+  border-left: 0px solid #F8723A;
+  border-right: 0px solid #F8723A;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+  background-position: 0 top;
+  background-repeat: no-repeat;
+  -webkit-background-size: 100% 5px;
+  -moz-background-size: 100% 5px;
+  background-size: 100% 5px;
+  background-image: -webkit-linear-gradient(to left, #F8723A 0%,#F8A351 100%);
+  background-image: -moz-linear-gradient(to left, #F8723A 0%,#F8A351 100%);
+  background-image: -o-linear-gradient(to left, #F8723A 0%,#F8A351 100%);
+  background-image: linear-gradient(to left, #F8723A 0%,#F8A351 100%);
+
+
+	h1 {
+		float: left;
+		margin: 0;
+		padding: 0 15px;
+		font-size: 24px;
+		line-height: 56px;
+		font-weight: 400;
+		color: @scorpion;
+	}
+
+	nav {
+		float: right;
+		font-size: 100%;
+
+		a {
+			display: inline-block;
+			height: 56px;
+			line-height: 56px;
+			padding: 0 15px;
+			min-width: 50px;
+			text-align: center;
+			background: rgba(255,255,255,0);
+			text-decoration: none;
+			color: @scorpion;
+			will-change: background-color;
+
+			&:hover, &:active {
+				background: rgba(255,255,255,0.3);
+			}
+
+			&.active {
+				background: rgba(255,255,255,0.4);
+			}
+		}
+	}
+}

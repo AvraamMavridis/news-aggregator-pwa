@@ -1,0 +1,99 @@
+@import '~style/helpers';
+
+.item {
+  font-size: 22px;
+  background: white;
+  margin-top: 10px;
+  padding: 0px;
+  box-shadow: 1px 1px 1px 1px rgba(0, 0, 0, 0.1);
+}
+
+.item:hover {
+  box-shadow: 2px 2px 2px 2px rgba(0, 0, 0, 0.1);
+}
+
+.description {
+  font-size: 16px;
+  display: flex;
+}
+
+.icon {
+  height: 16px;
+  width: 16px;
+  display: block;
+  margin-left: 5px;
+  transition: 300ms all;
+  transform: rotate(0deg);
+  background-position: center;
+  background-size: contain;
+  background-repeat: no-repeat;
+}
+
+.desc {
+  background-image: url('../../assets/next.svg');
+}
+
+.open {
+  background-image: url('../../assets/open_window.svg');
+}
+
+.rotate {
+  transition: 300ms all;
+  transform: rotate(90deg);
+}
+
+.id {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.time{
+  font-size: 14px;
+  text-align: center;
+  height: 60px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.title {
+  font-size: 18px;
+  color: @scorpion;
+}
+
+.weekday {
+  color: #F96B45;
+  font-size: 16px;
+  font-weight: bold;
+}
+
+.source {
+  font-size: 0.7em;
+  color: @tacao;
+}
+
+.moreContainer {
+  background: @athens-gray;
+  // border-top: 1px solid @tacao;
+  height: 25px;
+  margin-top: 5px;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+
+  div, a {
+    cursor: pointer;
+    color: @crusta;
+    font-size: 12px;
+    text-decoration: none;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  div:hover, a:hover {
+    color: @well-read;
+  }
+}

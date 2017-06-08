@@ -1,0 +1,25 @@
+{
+  "name": "backend",
+  "version": "1.0.0",
+  "description": "",
+  "main": "handler.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "eslint": "^3.19.0",
+    "eslint-config-airbnb-base": "^11.2.0",
+    "eslint-plugin-import": "^2.3.0",
+    "serverless-offline": "^3.14.1"
+  },
+  "dependencies": {
+    "aws-sdk": "^2.62.0",
+    "feedparser": "^2.2.0",
+    "firebase": "^4.1.1",
+    "request": "^2.81.0",
+    "serverless-dynamodb-local": "^0.2.22",
+    "string-hash": "^1.1.3"
+  }
+}
