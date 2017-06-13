@@ -11,6 +11,12 @@
         "LogGroupName": "/aws/lambda/news-aggregator-dev-cron"
       }
     },
+    "TweetsLogGroup": {
+      "Type": "AWS::Logs::LogGroup",
+      "Properties": {
+        "LogGroupName": "/aws/lambda/news-aggregator-dev-tweets"
+      }
+    },
     "ListLogGroup": {
       "Type": "AWS::Logs::LogGroup",
       "Properties": {
@@ -65,6 +71,12 @@
                     },
                     {
                       "Fn::GetAtt": [
+                        "TweetsLogGroup",
+                        "Arn"
+                      ]
+                    },
+                    {
+                      "Fn::GetAtt": [
                         "ListLogGroup",
                         "Arn"
                       ]
@@ -84,6 +96,20 @@
                           {
                             "Fn::GetAtt": [
                               "CronLogGroup",
+                              "Arn"
+                            ]
+                          },
+                          "*"
+                        ]
+                      ]
+                    },
+                    {
+                      "Fn::Join": [
+                        ":",
+                        [
+                          {
+                            "Fn::GetAtt": [
+                              "TweetsLogGroup",
                               "Arn"
                             ]
                           },
@@ -144,7 +170,7 @@
           "S3Bucket": {
             "Ref": "ServerlessDeploymentBucket"
           },
-          "S3Key": "serverless/news-aggregator/dev/1496809819015-2017-06-07T04:30:19.015Z/news-aggregator.zip"
+          "S3Key": "serverless/news-aggregator/dev/1497330210143-2017-06-13T05:03:30.143Z/news-aggregator.zip"
         },
         "FunctionName": "news-aggregator-dev-cron",
         "Handler": "cron.run",
@@ -167,14 +193,54 @@
         "IamRoleLambdaExecution"
       ]
     },
-    "CronLambdaVersionY6j9rbQMMojWgoFG7n1z3smSAySTxsyFd9hJSwcJx8w": {
+    "CronLambdaVersionoi5cm2LtkV8aOQcgeSfoyuy6Y3hm06s5BpTgJN12E": {
       "Type": "AWS::Lambda::Version",
       "DeletionPolicy": "Retain",
       "Properties": {
         "FunctionName": {
           "Ref": "CronLambdaFunction"
         },
-        "CodeSha256": "Y6j9rbQMMojWgoFG7n1z3smSAySTxsyFd9hJSwcJx8w="
+        "CodeSha256": "oi5cm2L+tkV8aOQcgeSfoyuy6Y3hm06s5B/pTgJN12E="
+      }
+    },
+    "TweetsLambdaFunction": {
+      "Type": "AWS::Lambda::Function",
+      "Properties": {
+        "Code": {
+          "S3Bucket": {
+            "Ref": "ServerlessDeploymentBucket"
+          },
+          "S3Key": "serverless/news-aggregator/dev/1497330210143-2017-06-13T05:03:30.143Z/news-aggregator.zip"
+        },
+        "FunctionName": "news-aggregator-dev-tweets",
+        "Handler": "tweets.get",
+        "MemorySize": 1024,
+        "Role": {
+          "Fn::GetAtt": [
+            "IamRoleLambdaExecution",
+            "Arn"
+          ]
+        },
+        "Runtime": "nodejs6.10",
+        "Timeout": 30,
+        "Environment": {
+          "Variables": {
+            "DYNAMODB_TABLE": "news-aggregator-dev"
+          }
+        }
+      },
+      "DependsOn": [
+        "IamRoleLambdaExecution"
+      ]
+    },
+    "TweetsLambdaVersionoi5cm2LtkV8aOQcgeSfoyuy6Y3hm06s5BpTgJN12E": {
+      "Type": "AWS::Lambda::Version",
+      "DeletionPolicy": "Retain",
+      "Properties": {
+        "FunctionName": {
+          "Ref": "TweetsLambdaFunction"
+        },
+        "CodeSha256": "oi5cm2L+tkV8aOQcgeSfoyuy6Y3hm06s5B/pTgJN12E="
       }
     },
     "ListLambdaFunction": {
@@ -184,7 +250,7 @@
           "S3Bucket": {
             "Ref": "ServerlessDeploymentBucket"
           },
-          "S3Key": "serverless/news-aggregator/dev/1496809819015-2017-06-07T04:30:19.015Z/news-aggregator.zip"
+          "S3Key": "serverless/news-aggregator/dev/1497330210143-2017-06-13T05:03:30.143Z/news-aggregator.zip"
         },
         "FunctionName": "news-aggregator-dev-list",
         "Handler": "list.list",
@@ -207,20 +273,20 @@
         "IamRoleLambdaExecution"
       ]
     },
-    "ListLambdaVersionY6j9rbQMMojWgoFG7n1z3smSAySTxsyFd9hJSwcJx8w": {
+    "ListLambdaVersionoi5cm2LtkV8aOQcgeSfoyuy6Y3hm06s5BpTgJN12E": {
       "Type": "AWS::Lambda::Version",
       "DeletionPolicy": "Retain",
       "Properties": {
         "FunctionName": {
           "Ref": "ListLambdaFunction"
         },
-        "CodeSha256": "Y6j9rbQMMojWgoFG7n1z3smSAySTxsyFd9hJSwcJx8w="
+        "CodeSha256": "oi5cm2L+tkV8aOQcgeSfoyuy6Y3hm06s5B/pTgJN12E="
       }
     },
     "CronEventsRuleSchedule1": {
       "Type": "AWS::Events::Rule",
       "Properties": {
-        "ScheduleExpression": "rate(1 minute)",
+        "ScheduleExpression": "rate(5 minutes)",
         "State": "ENABLED",
         "Targets": [
           {
@@ -254,6 +320,43 @@
         }
       }
     },
+    "TweetsEventsRuleSchedule1": {
+      "Type": "AWS::Events::Rule",
+      "Properties": {
+        "ScheduleExpression": "rate(5 minutes)",
+        "State": "ENABLED",
+        "Targets": [
+          {
+            "Arn": {
+              "Fn::GetAtt": [
+                "TweetsLambdaFunction",
+                "Arn"
+              ]
+            },
+            "Id": "tweetsSchedule"
+          }
+        ]
+      }
+    },
+    "TweetsLambdaPermissionEventsRuleSchedule1": {
+      "Type": "AWS::Lambda::Permission",
+      "Properties": {
+        "FunctionName": {
+          "Fn::GetAtt": [
+            "TweetsLambdaFunction",
+            "Arn"
+          ]
+        },
+        "Action": "lambda:InvokeFunction",
+        "Principal": "events.amazonaws.com",
+        "SourceArn": {
+          "Fn::GetAtt": [
+            "TweetsEventsRuleSchedule1",
+            "Arn"
+          ]
+        }
+      }
+    },
     "ApiGatewayRestApi": {
       "Type": "AWS::ApiGateway::RestApi",
       "Properties": {
@@ -270,6 +373,21 @@
           ]
         },
         "PathPart": "scrap",
+        "RestApiId": {
+          "Ref": "ApiGatewayRestApi"
+        }
+      }
+    },
+    "ApiGatewayResourceTweets": {
+      "Type": "AWS::ApiGateway::Resource",
+      "Properties": {
+        "ParentId": {
+          "Fn::GetAtt": [
+            "ApiGatewayRestApi",
+            "RootResourceId"
+          ]
+        },
+        "PathPart": "tweets",
         "RestApiId": {
           "Ref": "ApiGatewayRestApi"
         }
@@ -374,6 +492,44 @@
         "MethodResponses": []
       }
     },
+    "ApiGatewayMethodTweetsGet": {
+      "Type": "AWS::ApiGateway::Method",
+      "Properties": {
+        "HttpMethod": "GET",
+        "RequestParameters": {},
+        "ResourceId": {
+          "Ref": "ApiGatewayResourceTweets"
+        },
+        "RestApiId": {
+          "Ref": "ApiGatewayRestApi"
+        },
+        "AuthorizationType": "NONE",
+        "Integration": {
+          "IntegrationHttpMethod": "POST",
+          "Type": "AWS_PROXY",
+          "Uri": {
+            "Fn::Join": [
+              "",
+              [
+                "arn:aws:apigateway:",
+                {
+                  "Ref": "AWS::Region"
+                },
+                ":lambda:path/2015-03-31/functions/",
+                {
+                  "Fn::GetAtt": [
+                    "TweetsLambdaFunction",
+                    "Arn"
+                  ]
+                },
+                "/invocations"
+              ]
+            ]
+          }
+        },
+        "MethodResponses": []
+      }
+    },
     "ApiGatewayMethodListGet": {
       "Type": "AWS::ApiGateway::Method",
       "Properties": {
@@ -412,7 +568,7 @@
         "MethodResponses": []
       }
     },
-    "ApiGatewayDeployment1496809819159": {
+    "ApiGatewayDeployment1497330210340": {
       "Type": "AWS::ApiGateway::Deployment",
       "Properties": {
         "RestApiId": {
@@ -422,6 +578,7 @@
       },
       "DependsOn": [
         "ApiGatewayMethodScrapGet",
+        "ApiGatewayMethodTweetsGet",
         "ApiGatewayMethodListGet"
       ]
     },
@@ -431,6 +588,39 @@
         "FunctionName": {
           "Fn::GetAtt": [
             "CronLambdaFunction",
+            "Arn"
+          ]
+        },
+        "Action": "lambda:InvokeFunction",
+        "Principal": "apigateway.amazonaws.com",
+        "SourceArn": {
+          "Fn::Join": [
+            "",
+            [
+              "arn:aws:execute-api:",
+              {
+                "Ref": "AWS::Region"
+              },
+              ":",
+              {
+                "Ref": "AWS::AccountId"
+              },
+              ":",
+              {
+                "Ref": "ApiGatewayRestApi"
+              },
+              "/*/*"
+            ]
+          ]
+        }
+      }
+    },
+    "TweetsLambdaPermissionApiGateway": {
+      "Type": "AWS::Lambda::Permission",
+      "Properties": {
+        "FunctionName": {
+          "Fn::GetAtt": [
+            "TweetsLambdaFunction",
             "Arn"
           ]
         },
@@ -524,13 +714,19 @@
     "CronLambdaFunctionQualifiedArn": {
       "Description": "Current Lambda function version",
       "Value": {
-        "Ref": "CronLambdaVersionY6j9rbQMMojWgoFG7n1z3smSAySTxsyFd9hJSwcJx8w"
+        "Ref": "CronLambdaVersionoi5cm2LtkV8aOQcgeSfoyuy6Y3hm06s5BpTgJN12E"
+      }
+    },
+    "TweetsLambdaFunctionQualifiedArn": {
+      "Description": "Current Lambda function version",
+      "Value": {
+        "Ref": "TweetsLambdaVersionoi5cm2LtkV8aOQcgeSfoyuy6Y3hm06s5BpTgJN12E"
       }
     },
     "ListLambdaFunctionQualifiedArn": {
       "Description": "Current Lambda function version",
       "Value": {
-        "Ref": "ListLambdaVersionY6j9rbQMMojWgoFG7n1z3smSAySTxsyFd9hJSwcJx8w"
+        "Ref": "ListLambdaVersionoi5cm2LtkV8aOQcgeSfoyuy6Y3hm06s5BpTgJN12E"
       }
     },
     "ServiceEndpoint": {

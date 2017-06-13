@@ -45,9 +45,18 @@ functions:
     timeout: 30
     handler: cron.run
     events:
-      - schedule: rate(1 minute)
+      - schedule: rate(5 minutes)
       - http:
            path: /scrap
+           method: GET
+
+  tweets:
+    timeout: 30
+    handler: tweets.get
+    events:
+      - schedule: rate(5 minutes)
+      - http:
+           path: /tweets
            method: GET
 
   list:
