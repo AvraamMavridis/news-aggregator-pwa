@@ -9,16 +9,17 @@ provider:
   runtime: nodejs6.10
   region: eu-west-1
   environment:
-    DYNAMODB_TABLE: ${self:service}-${opt:stage, self:provider.stage}
+    DYNAMODB_TABLE: onlynews-items
   iamRoleStatements:
     - Effect: Allow
       Action:
-        - dynamodb:Query
+        - dynamodb:*
         - dynamodb:Scan
         - dynamodb:GetItem
         - dynamodb:PutItem
         - dynamodb:UpdateItem
         - dynamodb:DeleteItem
+        - dynamodb:BatchWriteItem
       Resource: "arn:aws:dynamodb:${opt:region, self:provider.region}:*:table/${self:provider.environment.DYNAMODB_TABLE}"
 
 resources:
@@ -31,10 +32,16 @@ resources:
           -
             AttributeName: id
             AttributeType: S
+          -
+            AttributeName: createdAt
+            AttributeType: N
         KeySchema:
           -
             AttributeName: id
             KeyType: HASH
+          -
+            AttributeName: createdAt
+            KeyType: RANGE
         ProvisionedThroughput:
           ReadCapacityUnits: 5
           WriteCapacityUnits: 1
@@ -45,7 +52,7 @@ functions:
     timeout: 30
     handler: cron.run
     events:
-      - schedule: rate(5 minutes)
+      - schedule: rate(10 minutes)
       - http:
            path: /scrap
            method: GET

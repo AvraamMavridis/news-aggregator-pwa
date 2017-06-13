@@ -8,11 +8,11 @@ const parseFeed = function (feed) {
   console.log(`Parsing ${url}`);
   console.log('Dynamo Table', process.env.DYNAMODB_TABLE);
   return new Promise((resolve, reject) => {
-    let req = request(url);
-    let feedparser = new FeedParser();
+    const req = request(url);
+    const feedparser = new FeedParser();
 
     req.on('response', function (res) {
-      let stream = this; // `this` is `req`, which is a stream
+      const stream = this; // `this` is `req`, which is a stream
 
       if (res.statusCode !== 200) {
         this.emit('error', new Error('Bad status code'));
@@ -23,6 +23,7 @@ const parseFeed = function (feed) {
 
     feedparser.on('error', (err) => {
       console.log('Parser Error', err);
+      reject(err);
     });
 
     feedparser.on('readable', function () {

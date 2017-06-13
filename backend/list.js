@@ -22,7 +22,7 @@ module.exports.list = (event, context, callback) => {
       item.timeString = time.toLocaleTimeString(); // eslint-disable-line
       item.dateString = time.toLocaleDateString(); // eslint-disable-line
       return item;
-    });
+    }).slice(0, 300);
 
     let body;
     try {

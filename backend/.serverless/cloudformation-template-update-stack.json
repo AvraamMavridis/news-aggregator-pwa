@@ -136,14 +136,15 @@
                 {
                   "Effect": "Allow",
                   "Action": [
-                    "dynamodb:Query",
+                    "dynamodb:*",
                     "dynamodb:Scan",
                     "dynamodb:GetItem",
                     "dynamodb:PutItem",
                     "dynamodb:UpdateItem",
-                    "dynamodb:DeleteItem"
+                    "dynamodb:DeleteItem",
+                    "dynamodb:BatchWriteItem"
                   ],
-                  "Resource": "arn:aws:dynamodb:eu-west-1:*:table/news-aggregator-dev"
+                  "Resource": "arn:aws:dynamodb:eu-west-1:*:table/onlynews-items"
                 }
               ]
             }
@@ -170,7 +171,7 @@
           "S3Bucket": {
             "Ref": "ServerlessDeploymentBucket"
           },
-          "S3Key": "serverless/news-aggregator/dev/1497330210143-2017-06-13T05:03:30.143Z/news-aggregator.zip"
+          "S3Key": "serverless/news-aggregator/dev/1497348252752-2017-06-13T10:04:12.752Z/news-aggregator.zip"
         },
         "FunctionName": "news-aggregator-dev-cron",
         "Handler": "cron.run",
@@ -185,7 +186,7 @@
         "Timeout": 30,
         "Environment": {
           "Variables": {
-            "DYNAMODB_TABLE": "news-aggregator-dev"
+            "DYNAMODB_TABLE": "onlynews-items"
           }
         }
       },
@@ -193,14 +194,14 @@
         "IamRoleLambdaExecution"
       ]
     },
-    "CronLambdaVersionoi5cm2LtkV8aOQcgeSfoyuy6Y3hm06s5BpTgJN12E": {
+    "CronLambdaVersionAEQ98iGhWgsiaLFaZqKwgX3PIxH7xTnciCtOGzzE": {
       "Type": "AWS::Lambda::Version",
       "DeletionPolicy": "Retain",
       "Properties": {
         "FunctionName": {
           "Ref": "CronLambdaFunction"
         },
-        "CodeSha256": "oi5cm2L+tkV8aOQcgeSfoyuy6Y3hm06s5B/pTgJN12E="
+        "CodeSha256": "AEQ98iGhW/gsiaLFaZqKwg//X3PIxH7xTnciCtOGzzE="
       }
     },
     "TweetsLambdaFunction": {
@@ -210,7 +211,7 @@
           "S3Bucket": {
             "Ref": "ServerlessDeploymentBucket"
           },
-          "S3Key": "serverless/news-aggregator/dev/1497330210143-2017-06-13T05:03:30.143Z/news-aggregator.zip"
+          "S3Key": "serverless/news-aggregator/dev/1497348252752-2017-06-13T10:04:12.752Z/news-aggregator.zip"
         },
         "FunctionName": "news-aggregator-dev-tweets",
         "Handler": "tweets.get",
@@ -225,7 +226,7 @@
         "Timeout": 30,
         "Environment": {
           "Variables": {
-            "DYNAMODB_TABLE": "news-aggregator-dev"
+            "DYNAMODB_TABLE": "onlynews-items"
           }
         }
       },
@@ -233,14 +234,14 @@
         "IamRoleLambdaExecution"
       ]
     },
-    "TweetsLambdaVersionoi5cm2LtkV8aOQcgeSfoyuy6Y3hm06s5BpTgJN12E": {
+    "TweetsLambdaVersionAEQ98iGhWgsiaLFaZqKwgX3PIxH7xTnciCtOGzzE": {
       "Type": "AWS::Lambda::Version",
       "DeletionPolicy": "Retain",
       "Properties": {
         "FunctionName": {
           "Ref": "TweetsLambdaFunction"
         },
-        "CodeSha256": "oi5cm2L+tkV8aOQcgeSfoyuy6Y3hm06s5B/pTgJN12E="
+        "CodeSha256": "AEQ98iGhW/gsiaLFaZqKwg//X3PIxH7xTnciCtOGzzE="
       }
     },
     "ListLambdaFunction": {
@@ -250,7 +251,7 @@
           "S3Bucket": {
             "Ref": "ServerlessDeploymentBucket"
           },
-          "S3Key": "serverless/news-aggregator/dev/1497330210143-2017-06-13T05:03:30.143Z/news-aggregator.zip"
+          "S3Key": "serverless/news-aggregator/dev/1497348252752-2017-06-13T10:04:12.752Z/news-aggregator.zip"
         },
         "FunctionName": "news-aggregator-dev-list",
         "Handler": "list.list",
@@ -265,7 +266,7 @@
         "Timeout": 6,
         "Environment": {
           "Variables": {
-            "DYNAMODB_TABLE": "news-aggregator-dev"
+            "DYNAMODB_TABLE": "onlynews-items"
           }
         }
       },
@@ -273,20 +274,20 @@
         "IamRoleLambdaExecution"
       ]
     },
-    "ListLambdaVersionoi5cm2LtkV8aOQcgeSfoyuy6Y3hm06s5BpTgJN12E": {
+    "ListLambdaVersionAEQ98iGhWgsiaLFaZqKwgX3PIxH7xTnciCtOGzzE": {
       "Type": "AWS::Lambda::Version",
       "DeletionPolicy": "Retain",
       "Properties": {
         "FunctionName": {
           "Ref": "ListLambdaFunction"
         },
-        "CodeSha256": "oi5cm2L+tkV8aOQcgeSfoyuy6Y3hm06s5B/pTgJN12E="
+        "CodeSha256": "AEQ98iGhW/gsiaLFaZqKwg//X3PIxH7xTnciCtOGzzE="
       }
     },
     "CronEventsRuleSchedule1": {
       "Type": "AWS::Events::Rule",
       "Properties": {
-        "ScheduleExpression": "rate(5 minutes)",
+        "ScheduleExpression": "rate(10 minutes)",
         "State": "ENABLED",
         "Targets": [
           {
@@ -568,7 +569,7 @@
         "MethodResponses": []
       }
     },
-    "ApiGatewayDeployment1497330210340": {
+    "ApiGatewayDeployment1497348252955": {
       "Type": "AWS::ApiGateway::Deployment",
       "Properties": {
         "RestApiId": {
@@ -689,19 +690,27 @@
           {
             "AttributeName": "id",
             "AttributeType": "S"
+          },
+          {
+            "AttributeName": "createdAt",
+            "AttributeType": "N"
           }
         ],
         "KeySchema": [
           {
             "AttributeName": "id",
             "KeyType": "HASH"
+          },
+          {
+            "AttributeName": "createdAt",
+            "KeyType": "RANGE"
           }
         ],
         "ProvisionedThroughput": {
           "ReadCapacityUnits": 5,
           "WriteCapacityUnits": 1
         },
-        "TableName": "news-aggregator-dev"
+        "TableName": "onlynews-items"
       }
     }
   },
@@ -714,19 +723,19 @@
     "CronLambdaFunctionQualifiedArn": {
       "Description": "Current Lambda function version",
       "Value": {
-        "Ref": "CronLambdaVersionoi5cm2LtkV8aOQcgeSfoyuy6Y3hm06s5BpTgJN12E"
+        "Ref": "CronLambdaVersionAEQ98iGhWgsiaLFaZqKwgX3PIxH7xTnciCtOGzzE"
       }
     },
     "TweetsLambdaFunctionQualifiedArn": {
       "Description": "Current Lambda function version",
       "Value": {
-        "Ref": "TweetsLambdaVersionoi5cm2LtkV8aOQcgeSfoyuy6Y3hm06s5BpTgJN12E"
+        "Ref": "TweetsLambdaVersionAEQ98iGhWgsiaLFaZqKwgX3PIxH7xTnciCtOGzzE"
       }
     },
     "ListLambdaFunctionQualifiedArn": {
       "Description": "Current Lambda function version",
       "Value": {
-        "Ref": "ListLambdaVersionoi5cm2LtkV8aOQcgeSfoyuy6Y3hm06s5BpTgJN12E"
+        "Ref": "ListLambdaVersionAEQ98iGhWgsiaLFaZqKwgX3PIxH7xTnciCtOGzzE"
       }
     },
     "ServiceEndpoint": {

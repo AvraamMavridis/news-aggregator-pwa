@@ -37,10 +37,11 @@ module.exports.get = (event, context, callback) => {
           item.title = i.text.replace(/(?:https?|ftp):\/\/[\n\S]+/g, '').trim();
           item.title = item.title.replace(/(@\S+)/gi, '');
           item.title = item.title.replace(/(#\S+)/gi, '');
+          item.title = item.title.replace('via', '');
           item.title = item.title.replace('via @tanea', '').trim();
           item.title = item.title.replace(/\s\s+/g, ' ');
           item.source = source.source;
-          item.createdAt = new Date(i.created_at).getTime();
+          item.createdAt = new Date().getTime();
           item.updatedAt = new Date().getTime();
           item.description = '-';
           if (i.entities.media && i.entities.media[0]) {
@@ -76,7 +77,7 @@ module.exports.get = (event, context, callback) => {
       return params;
     });
 
-    itemsToPut = itemsToPut.filter(it => Boolean(it.title) && Boolean(it.link));
+    itemsToPut = itemsToPut.filter(it => !it.title || !it.link);
 
     const chunks = createChunk(itemsToPut, 20);
     const promises2 = [];
@@ -88,14 +89,18 @@ module.exports.get = (event, context, callback) => {
       };
 
       promises2.push(new Promise((resolve, reject) => {
-        dynamodb.batchWrite(params, (err) => {
+        dynamodb.batchWrite(params, (err, res) => {
           if (err) {
             console.log('>>>>>>ERROR1', err);
             reject(err);
-          } else resolve(chunkItems);
+          } else {
+            resolve(chunkItems);
+          }
         });
       }));
     });
+
+    console.log('chunks: ', chunks.length);
 
     Promise.all(promises2)
     .then(() => {
@@ -108,12 +113,8 @@ module.exports.get = (event, context, callback) => {
           'Access-Control-Allow-Credentials': true, // Required for cookies, authorization headers with HTTPS
         },
       };
-      console.log('ITEMS SAVED ON DB');
+      console.log('ITEMS SAVED ON DB ', process.env.DYNAMODB_TABLE, items);
       callback(null, response);
-    })
-    .catch((e) => {
-      console.log('>>>>>>ERROR2', e);
-      callback(e);
     });
   })
   .catch((e) => {
