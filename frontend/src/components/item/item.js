@@ -11,7 +11,14 @@ const colors = {
   'NEWSBOMB': '#af1e23',
   'IN.GR': '#2C93CE',
   'ΠΡΩΤΟ ΘΕΜΑ': '#f27600',
-  'HUFFINGTONPOST': '#058b7b'
+  'HUFFINGTONPOST': '#058b7b',
+  'Lifo': '#D72222',
+  'CNNgreece': '#CC0000',
+  'ΑΠΕ-ΜΠΕ': '#231F20',
+  'ΤΑ ΝΕΑ': '#3B6DA4',
+  'Protagon': '#000000',
+  'ThePressProject': '#014B69',
+  'DOC TV': '#1EBDDC'
 }
 
 
@@ -76,11 +83,13 @@ export default class Item extends Component {
     let datemonth = dateString.split('/')
     datemonth = `${ datemonth[0] }/${ datemonth[1] }`
 
+    let styleSource = item.source.replace('.', '');
+    styleSource = styleSource.replace(' ', '');
+    console.log(item.source, styleSource);
+
 		return (
 			<div className={ itemClass } style={ { borderLeft: `15px solid ${colors[item.source]}`}}>
-        <div className={ `cute-2-phone ${ style.time }` } >
-          <div className={ style.weekday }>{ weekday } { datemonth } { time }</div>
-          <div className={ style.source }>{ item.source }</div>
+        <div className={ `cute-2-phone ${ style.source } ${ style[styleSource] }` } >
         </div>
         <div className="cute-10-phone" style={{ paddingRight: 0, paddingBottom: 0, }}>
         <div className={ ` ${ style.title }` }>
