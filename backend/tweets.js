@@ -41,7 +41,7 @@ module.exports.get = (event, context, callback) => {
           item.title = item.title.replace('via @tanea', '').trim();
           item.title = item.title.replace(/\s\s+/g, ' ');
           item.source = source.source;
-          item.createdAt = new Date().getTime();
+          item.createdAt = new Date(i.created_at).getTime();
           item.updatedAt = new Date().getTime();
           item.description = '-';
           if (i.entities.media && i.entities.media[0]) {

@@ -42,7 +42,7 @@ const parseFeed = function (feed) {
             link: item.link,
             description: item.description,
             image: item.image,
-            createdAt: timestamp,
+            createdAt: new Date(item.pubdate).getTime(),
             updatedAt: timestamp,
             source: feed.source,
           },

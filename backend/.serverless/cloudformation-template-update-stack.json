@@ -171,7 +171,7 @@
           "S3Bucket": {
             "Ref": "ServerlessDeploymentBucket"
           },
-          "S3Key": "serverless/news-aggregator/dev/1497348252752-2017-06-13T10:04:12.752Z/news-aggregator.zip"
+          "S3Key": "serverless/news-aggregator/dev/1497357665405-2017-06-13T12:41:05.405Z/news-aggregator.zip"
         },
         "FunctionName": "news-aggregator-dev-cron",
         "Handler": "cron.run",
@@ -194,14 +194,14 @@
         "IamRoleLambdaExecution"
       ]
     },
-    "CronLambdaVersionAEQ98iGhWgsiaLFaZqKwgX3PIxH7xTnciCtOGzzE": {
+    "CronLambdaVersioncKiHdEK51Zz1f4Smn7Viv233eGKAcz3CEZ3j0pBwpI": {
       "Type": "AWS::Lambda::Version",
       "DeletionPolicy": "Retain",
       "Properties": {
         "FunctionName": {
           "Ref": "CronLambdaFunction"
         },
-        "CodeSha256": "AEQ98iGhW/gsiaLFaZqKwg//X3PIxH7xTnciCtOGzzE="
+        "CodeSha256": "cKiHdEK51Zz1f4Smn7Viv233eGKAcz3CEZ3j0pBwp/I="
       }
     },
     "TweetsLambdaFunction": {
@@ -211,7 +211,7 @@
           "S3Bucket": {
             "Ref": "ServerlessDeploymentBucket"
           },
-          "S3Key": "serverless/news-aggregator/dev/1497348252752-2017-06-13T10:04:12.752Z/news-aggregator.zip"
+          "S3Key": "serverless/news-aggregator/dev/1497357665405-2017-06-13T12:41:05.405Z/news-aggregator.zip"
         },
         "FunctionName": "news-aggregator-dev-tweets",
         "Handler": "tweets.get",
@@ -234,14 +234,14 @@
         "IamRoleLambdaExecution"
       ]
     },
-    "TweetsLambdaVersionAEQ98iGhWgsiaLFaZqKwgX3PIxH7xTnciCtOGzzE": {
+    "TweetsLambdaVersioncKiHdEK51Zz1f4Smn7Viv233eGKAcz3CEZ3j0pBwpI": {
       "Type": "AWS::Lambda::Version",
       "DeletionPolicy": "Retain",
       "Properties": {
         "FunctionName": {
           "Ref": "TweetsLambdaFunction"
         },
-        "CodeSha256": "AEQ98iGhW/gsiaLFaZqKwg//X3PIxH7xTnciCtOGzzE="
+        "CodeSha256": "cKiHdEK51Zz1f4Smn7Viv233eGKAcz3CEZ3j0pBwp/I="
       }
     },
     "ListLambdaFunction": {
@@ -251,7 +251,7 @@
           "S3Bucket": {
             "Ref": "ServerlessDeploymentBucket"
           },
-          "S3Key": "serverless/news-aggregator/dev/1497348252752-2017-06-13T10:04:12.752Z/news-aggregator.zip"
+          "S3Key": "serverless/news-aggregator/dev/1497357665405-2017-06-13T12:41:05.405Z/news-aggregator.zip"
         },
         "FunctionName": "news-aggregator-dev-list",
         "Handler": "list.list",
@@ -274,14 +274,14 @@
         "IamRoleLambdaExecution"
       ]
     },
-    "ListLambdaVersionAEQ98iGhWgsiaLFaZqKwgX3PIxH7xTnciCtOGzzE": {
+    "ListLambdaVersioncKiHdEK51Zz1f4Smn7Viv233eGKAcz3CEZ3j0pBwpI": {
       "Type": "AWS::Lambda::Version",
       "DeletionPolicy": "Retain",
       "Properties": {
         "FunctionName": {
           "Ref": "ListLambdaFunction"
         },
-        "CodeSha256": "AEQ98iGhW/gsiaLFaZqKwg//X3PIxH7xTnciCtOGzzE="
+        "CodeSha256": "cKiHdEK51Zz1f4Smn7Viv233eGKAcz3CEZ3j0pBwp/I="
       }
     },
     "CronEventsRuleSchedule1": {
@@ -569,7 +569,7 @@
         "MethodResponses": []
       }
     },
-    "ApiGatewayDeployment1497348252955": {
+    "ApiGatewayDeployment1497357665607": {
       "Type": "AWS::ApiGateway::Deployment",
       "Properties": {
         "RestApiId": {
@@ -723,19 +723,19 @@
     "CronLambdaFunctionQualifiedArn": {
       "Description": "Current Lambda function version",
       "Value": {
-        "Ref": "CronLambdaVersionAEQ98iGhWgsiaLFaZqKwgX3PIxH7xTnciCtOGzzE"
+        "Ref": "CronLambdaVersioncKiHdEK51Zz1f4Smn7Viv233eGKAcz3CEZ3j0pBwpI"
       }
     },
     "TweetsLambdaFunctionQualifiedArn": {
       "Description": "Current Lambda function version",
       "Value": {
-        "Ref": "TweetsLambdaVersionAEQ98iGhWgsiaLFaZqKwgX3PIxH7xTnciCtOGzzE"
+        "Ref": "TweetsLambdaVersioncKiHdEK51Zz1f4Smn7Viv233eGKAcz3CEZ3j0pBwpI"
       }
     },
     "ListLambdaFunctionQualifiedArn": {
       "Description": "Current Lambda function version",
       "Value": {
-        "Ref": "ListLambdaVersionAEQ98iGhWgsiaLFaZqKwgX3PIxH7xTnciCtOGzzE"
+        "Ref": "ListLambdaVersioncKiHdEK51Zz1f4Smn7Viv233eGKAcz3CEZ3j0pBwpI"
       }
     },
     "ServiceEndpoint": {

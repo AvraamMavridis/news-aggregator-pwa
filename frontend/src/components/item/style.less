@@ -15,6 +15,9 @@
 .description {
   font-size: 16px;
   display: flex;
+  padding: 25px;
+  text-align: justify;
+  background: @athens-gray;
 }
 
 .icon {
@@ -29,17 +32,56 @@
   background-repeat: no-repeat;
 }
 
-.desc {
-  background-image: url('../../assets/next.svg');
+.button {
+  border: none;
+  padding: 5px 15px 5px 5px;
+  background-position: 80px center;
+  background-color: @athens-gray;
+  outline: none;
+  cursor: pointer;
+  color: #F8723A;
+  font-size: 14px;
 }
 
-.open {
-  background-image: url('../../assets/open_window.svg');
+.button[disabled], .button[disabled]:hover{
+  color: @cinderella;
+  text-decoration: none;
+  cursor: default;
+}
+
+.disabledIcon {
+  opacity: 0.3;
+}
+
+.time
+
+.desc {
+  background-image: url('../../assets/next.svg');
+  width: 16px;
+  height: 16px;
+  margin-left: 5px;
+  position: absolute;
+  display: inline-block;
+  background-position: center;
+  background-size: contain;
+  z-index: 10;
+  background-repeat: no-repeat;
+  transition: 300ms all;
+  transform: rotate(0deg);
 }
 
 .rotate {
   transition: 300ms all;
   transform: rotate(90deg);
+}
+
+.button:hover {
+  color: @outrageous-orange;
+  text-decoration: underline;
+}
+
+.open {
+  background-image: url('../../assets/open_window.svg');
 }
 
 .id {
@@ -50,17 +92,14 @@
 
 .time{
   font-size: 14px;
-  text-align: center;
-  height: 60px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
+  padding: 0px 10px;
+  color: @scorpion;
 }
 
 .title {
   font-size: 18px;
   color: @scorpion;
+  font-weight: bold;
 }
 
 .weekday {
@@ -76,8 +115,7 @@
 
 .moreContainer {
   background: @athens-gray;
-  // border-top: 1px solid @tacao;
-  height: 25px;
+  height: 35px;
   margin-top: 5px;
   display: flex;
   justify-content: space-around;
@@ -96,6 +134,11 @@
   div:hover, a:hover {
     color: @well-read;
   }
+}
+
+.buttonContainer {
+  height: 100%;
+  padding: 0px;
 }
 
 .source {
