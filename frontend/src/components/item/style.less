@@ -53,8 +53,6 @@
   opacity: 0.3;
 }
 
-.time
-
 .desc {
   background-image: url('../../assets/next.svg');
   width: 16px;
@@ -68,6 +66,19 @@
   background-repeat: no-repeat;
   transition: 300ms all;
   transform: rotate(0deg);
+}
+
+.save {
+  background-image: url('../../assets/bookmark.svg');
+  width: 16px;
+  height: 16px;
+  margin-left: 5px;
+  position: absolute;
+  display: inline-block;
+  background-position: center;
+  background-size: contain;
+  z-index: 10;
+  background-repeat: no-repeat;
 }
 
 .rotate {
@@ -94,12 +105,16 @@
   font-size: 14px;
   padding: 0px 10px;
   color: @scorpion;
+  display: flex;
 }
 
 .title {
   font-size: 18px;
   color: @scorpion;
   font-weight: bold;
+}
+
+.titleContainer {
 }
 
 .weekday {
@@ -141,11 +156,21 @@
   padding: 0px;
 }
 
+.calendarIcon {
+  height: 16px;
+  width: 16px;
+  background-image: url('../../assets/calendar.svg');
+  background-repeat: no-repeat;
+  display: inline-block;
+  background-position: center;
+  margin-right: 5px;
+}
+
 .source {
   background-repeat: no-repeat;
   background-size: 60%;
   background-position: center;
-  height: 100px;
+  height: 80px;
 }
 
 .ENIKOS {

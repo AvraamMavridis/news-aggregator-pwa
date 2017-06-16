@@ -1,5 +1,6 @@
 import { h, Component } from 'preact';
 import style from './style';
+import store from 'store';
 
 const colors = {
 	ENIKOS: '#be1522',
@@ -50,6 +51,12 @@ export default class Item extends Component {
 		}
 	}
 
+	saveItem(item){
+		const saved = store.get('saved') || [];
+		saved.push(item);
+		store.set('saved', saved);
+	}
+
 	shouldComponentUpdate(nextProps, nextState) {
 		return nextProps.isFetched;
 	}
@@ -86,12 +93,12 @@ export default class Item extends Component {
 		return (
 			<div className={itemClass} style={{ borderLeft: `15px solid ${colors[item.source]}` }}>
 				<div className={`cute-2-phone ${style.source} ${style[styleSource]}`} />
-				<div className="cute-10-phone" style={{ paddingRight: 0, paddingBottom: 0 }}>
+				<div className={ `cute-10-phone ${style.titleContainer}` }>
 					<div className={`cute-12-phone ${style.title}`}>
 						{title}
 					</div>
 					<div className={`cute-12-phone ${style.time}`}>
-						{when}
+						<span className={style.calendarIcon}></span>{when}
 					</div>
 				</div>
 				<div className={`cute-12-phone ${style.buttonContainer}`}>
@@ -102,6 +109,13 @@ export default class Item extends Component {
 							onClick={this.toggleDescription}
 						>
 							ΠΕΡΙΛΗΨΗ<span className={`${style.desc} ${showDescription ? style.rotate : ''} ${ description === 'undefined' ? style.disabledIcon : '' }`} />
+						</button>
+						<button
+							className={`${style.button}`}
+							disabled={description === 'undefined'}
+							onClick={this.saveItem}
+						>
+							ΑΠΟΘΗΚΕΥΣΗ<span className={`${style.save}`} />
 						</button>
 						<div>
 							<a target="_blank" href={item.link}>ΑΝΟΙΞΕ ΑΡΘΡΟ</a>

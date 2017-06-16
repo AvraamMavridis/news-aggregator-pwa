@@ -27,4 +27,12 @@ module.exports = [
     screen_name: 'ta_nea',
     source: 'ΤΑ ΝΕΑ',
   },
+  {
+    screen_name: 'Kathimerini_gr',
+    source: 'Η ΚΑΘΗΜΕΡΙΝΗ',
+  },
+  {
+    screen_name: 'TOPONTIKI',
+    source: 'ΤΟ ΠΟΝΤΙΚΙ',
+  },
 ];

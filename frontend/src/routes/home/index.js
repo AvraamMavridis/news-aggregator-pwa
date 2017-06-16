@@ -22,7 +22,7 @@ export default class Home extends Component {
 					items = items.sort((a, b) => b.createdAt - a.createdAt);
 					const newItems = items;
 					store.set("items", items);
-					this.setState({ items: newItems, isFetched: true });
+					this.setState({ items: newItems, isFetched: true, newItems });
 				})
 				.catch(console.log)
 		})
@@ -33,8 +33,17 @@ export default class Home extends Component {
     if (!items) {
       this.handleRefresh();
     } else {
-      this.setState({ items, isFetched: true });
+      this.setState({ items, isFetched: true, newItems: items });
     }
+  }
+
+  onSearch(e){
+    console.log(e, this.search.value)
+
+    const items = this.state.newItems.filter(item => item.title.includes(this.search.value));
+    this.setState({
+      items
+    })
   }
 
   render() {
@@ -43,6 +52,7 @@ export default class Home extends Component {
 
     return (
       <div class={style.refreshview}>
+          <input type="text" onKeyPress={ e => this.onSearch(e) } ref={(search) => (this.search = search) } />
           <div class={refreshClass}>
 						{ isFetched ? <div>
 								<div className="button" role="button" onClick={ this.handleRefresh }>
