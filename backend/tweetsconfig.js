@@ -35,4 +35,20 @@ module.exports = [
     screen_name: 'TOPONTIKI',
     source: 'ΤΟ ΠΟΝΤΙΚΙ',
   },
+  {
+    screen_name: 'tvxs',
+    source: 'TV Χωρίς Σύνορα',
+  },
+  {
+    screen_name: 'Real_gr',
+    source: 'Real.gr',
+  },
+  {
+    screen_name: 'tovimagr',
+    source: 'ΤΟ ΒΗΜΑ',
+  },
+  {
+    screen_name: 'naftemporikigr',
+    source: 'ΝΑΥΤΕΜΠΟΡΙΚΗ',
+  },
 ];

@@ -2,36 +2,54 @@ import { h, Component } from "preact";
 import style from "./style";
 import Item from "../../components/item/item";
 import store from "store";
+import config from '../../config';
 
+/**
+ * Home Component
+ *
+ * @export
+ * @class Home
+ * @extends {Component}
+ */
 export default class Home extends Component {
+
+
+  /**
+   * Creates an instance of Home.
+   * @param {any} props
+   *
+   * @memberof Home
+   */
   constructor(props) {
     super(props);
     this.state = {
       isFetched: false,
       items: Array.apply(null, { length: 100 }).map(i => ({ id: i }))
     };
-		this.handleRefresh = this.handleRefresh.bind(this);
+		this.onRefresh = this.onRefresh.bind(this);
   }
 
-  handleRefresh() {
+  /**
+   * Handle refresh click
+   *
+   * @memberof Home
+   */
+  async onRefresh() {
 		this.setState({ isFetched: false }, () => {
-			fetch("https://hn8r2gj6e6.execute-api.eu-west-1.amazonaws.com/dev/list")
-				.then(response => response.json())
-				.then(items => {
-					items = items.filter(item => Boolean(item.source))
-					items = items.sort((a, b) => b.createdAt - a.createdAt);
-					const newItems = items;
-					store.set("items", items);
-					this.setState({ items: newItems, isFetched: true, newItems });
-				})
-				.catch(console.log)
+			const response = await fetch(config.endPoint);
+      let items = await response.json();
+			items = items.filter(item => Boolean(item.source))
+			items = items.sort((a, b) => b.createdAt - a.createdAt);
+			const newItems = items;
+			store.set("items", items);
+			this.setState({ items: newItems, isFetched: true, newItems });
 		})
   }
 
   componentWillMount() {
     const items = store.get("items");
     if (!items) {
-      this.handleRefresh();
+      this.onRefresh();
     } else {
       this.setState({ items, isFetched: true, newItems: items });
     }
@@ -55,7 +73,7 @@ export default class Home extends Component {
           <input type="text" onKeyPress={ e => this.onSearch(e) } ref={(search) => (this.search = search) } />
           <div class={refreshClass}>
 						{ isFetched ? <div>
-								<div className="button" role="button" onClick={ this.handleRefresh }>
+								<div className="button" role="button" onClick={ this.onRefresh }>
 									<span class={ style.refreshButton }></span>
 									<span>Refresh</span>
 								</div>
