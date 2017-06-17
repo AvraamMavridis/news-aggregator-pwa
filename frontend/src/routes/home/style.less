@@ -17,14 +17,26 @@
   display: flex;
 }
 
+.inputsContainer {
+  display: flex;
 
-.refreshButton {
-	background-image: url('../../assets/reload.svg');
-  display: inline-block;
-  height: 16px;
-  width: 16px;
-  background-position: center;
-  background-size: contain;
-  background-repeat: no-repeat;
-  margin: 2px 5px 0px 0px;
+  > * {
+    margin: 0px 10px;
+  }
+
+  > input[type="text"] {
+    height: 40px;
+  }
+
+  .refreshButton {
+    background-image: url('../../assets/reload.svg');
+    display: inline-block;
+    height: 16px;
+    width: 16px;
+    background-position: center;
+    background-size: contain;
+    background-repeat: no-repeat;
+    margin: 2px 5px 0px 0px;
+  }
 }
+
