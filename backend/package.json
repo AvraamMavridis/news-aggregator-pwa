@@ -9,15 +9,15 @@
   "author": "",
   "license": "ISC",
   "devDependencies": {
-    "eslint": "^3.19.0",
-    "eslint-config-airbnb-base": "^11.2.0",
+    "eslint": "^5.3.0",
+    "eslint-config-airbnb-base": "^13.0.0",
     "eslint-plugin-import": "^2.3.0",
     "serverless-offline": "^3.14.1"
   },
   "dependencies": {
     "aws-sdk": "^2.62.0",
     "feedparser": "^2.2.0",
-    "firebase": "^4.1.1",
+    "firebase": "^5.3.1",
     "latest-tweets": "^1.0.3",
     "lodash": "^4.17.4",
     "request": "^2.81.0",
