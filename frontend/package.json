@@ -17,17 +17,17 @@
     "extends": "eslint-config-synacor"
   },
   "devDependencies": {
-    "eslint": "^3.19.0",
-    "eslint-config-synacor": "^1.0.0",
+    "eslint": "^5.3.0",
+    "eslint-config-synacor": "^3.0.1",
     "if-env": "^1.0.0",
-    "preact-cli": "^1.1.0"
+    "preact-cli": "^2.2.1"
   },
   "dependencies": {
     "lodash": "^4.17.4",
     "preact": "^8.1.0",
     "preact-compat": "^3.16.0",
     "preact-router": "^2.5.2",
-    "react-content-loader": "^1.3.1",
+    "react-content-loader": "^3.1.2",
     "react-lazy-load": "^3.0.12",
     "react-pull-to-refresh": "^1.0.6",
     "store": "^2.0.4"
